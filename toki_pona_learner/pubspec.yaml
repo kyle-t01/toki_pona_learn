@@ -60,7 +60,11 @@ flutter:
     - family: sitelenselikiwen
       fonts:
         - asset: fonts/sitelenselikiwenmonoasuki.ttf
+        
+        
 
+  assets:
+    - assets/toki_pona_dict.csv
       
 
   # The following line ensures that the Material Icons font is
