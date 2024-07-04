@@ -36,4 +36,11 @@ class DatabaseHelper {
 
     return db;
   }
+
+  Future<void> _createDb(Database db, int version) async {
+    await db.execute(createFontsTable);
+    await db.execute(createWordsTable);
+    await db.execute(createPartsOfSpeechTable);
+    await db.execute(createDefinitionsTable);
+  }
 }
