@@ -1,5 +1,6 @@
 // database_sql.dart
 
+/*
 // fonts table
 const String createFontsTable = '''
 CREATE TABLE Fonts (
@@ -8,6 +9,7 @@ CREATE TABLE Fonts (
   file BLOB NOT NULL
 );
 ''';
+*/
 
 // words table
 const String createWordsTable = '''
