@@ -1,7 +1,7 @@
 // database_sql.dart
 
 // fonts table
-const String createFonts = '''
+const String createFontsTable = '''
 CREATE TABLE Fonts (
   id INTEGER PRIMARY KEY AUTOINCREMENT,
   name TEXT NOT NULL,
@@ -10,7 +10,7 @@ CREATE TABLE Fonts (
 ''';
 
 // words table
-const String createWords = '''
+const String createWordsTable = '''
 CREATE TABLE Words (
   id INTEGER PRIMARY KEY AUTOINCREMENT,
   word TEXT NOT NULL,
@@ -22,7 +22,7 @@ CREATE TABLE Words (
 ''';
 
 // parts of speech
-const String createPartsOfSpeech = '''
+const String createPartsOfSpeechTable = '''
 CREATE TABLE PartsOfSpeech (
   id INTEGER PRIMARY KEY AUTOINCREMENT,
   part TEXT NOT NULL UNIQUE
