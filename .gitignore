@@ -69,3 +69,6 @@ app.*.map.json
 /android/app/debug
 /android/app/profile
 /android/app/release
+
+# dont show fonts
+/toki_pona_learner/fonts
