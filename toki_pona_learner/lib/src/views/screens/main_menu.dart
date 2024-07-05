@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../screens/dictionary.dart';
 
 class MainMenu extends StatelessWidget {
   const MainMenu({super.key});
@@ -7,7 +8,7 @@ class MainMenu extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Toki Pona Learning App'),
+        title: const Text('Main Menu'),
       ),
       body: Center(
         child: Column(
@@ -15,11 +16,20 @@ class MainMenu extends StatelessWidget {
           children: [
             ElevatedButton(
               onPressed: () {
-                ScaffoldMessenger.of(context).showSnackBar(
-                  const SnackBar(content: Text('Dictionary pressed')),
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => const Dictionary()),
                 );
               },
               child: const Text('Dictionary'),
+            ),
+            ElevatedButton(
+              onPressed: () {
+                ScaffoldMessenger.of(context).showSnackBar(
+                  const SnackBar(content: Text('View pressed')),
+                );
+              },
+              child: const Text('View'),
             ),
             ElevatedButton(
               onPressed: () {
