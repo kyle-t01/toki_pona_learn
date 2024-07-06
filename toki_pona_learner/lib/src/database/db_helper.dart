@@ -159,4 +159,19 @@ class DatabaseHelper {
     }).toList();
     return defsDictList;
   }
+
+  Future<List<Word>> getAllWords() async {
+    Database db = await database;
+    List<Word> words = [];
+    List<Map<String, dynamic>> maps = [];
+    maps = await db.rawQuery('''
+      SELECT *
+      FROM Words
+    ''');
+
+    for (var map in maps) {
+      words.add(Word.fromMap(map));
+    }
+    return words;
+  }
 }
