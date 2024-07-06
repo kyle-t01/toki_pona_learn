@@ -30,8 +30,7 @@ class WordCard extends StatelessWidget {
       wordFact.word.word,
       style: const TextStyle(
         fontFamily: 'sitelenselikiwen',
-        fontSize: 24,
-        fontWeight: FontWeight.bold,
+        fontSize: 24.0,
       ),
     );
   }

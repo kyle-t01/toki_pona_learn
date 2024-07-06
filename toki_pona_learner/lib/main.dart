@@ -22,8 +22,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         colorScheme:
             ColorScheme.fromSeed(seedColor: Color.fromARGB(255, 255, 225, 166)),
-        useMaterial3: true,
-        //fontFamily: 'sitelenselikiwen',
+        useMaterial3: false,
       ),
       home: const MainMenu(),
     );
