@@ -56,8 +56,15 @@ class _DictionaryState extends State<Dictionary> {
     // search query is space delimited
     List<String> words = query.split(' ').map((word) => word.trim()).toList();
     List<WordFact> entries = [];
-    // for each query
+
+    int emptyQueries = 0;
     for (String word in words) {
+      // check input for " "
+      if (word.isEmpty && emptyQueries > 0) {
+        continue;
+      } else {
+        emptyQueries++;
+      }
       List<WordFact> entry = await db.getWordDefsMapping(word);
       entries.addAll(entry);
     }
