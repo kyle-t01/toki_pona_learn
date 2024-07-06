@@ -21,7 +21,7 @@ class MyApp extends StatelessWidget {
       title: 'Toki Pona Learning App',
       theme: ThemeData(
         colorScheme:
-            ColorScheme.fromSeed(seedColor: Color.fromARGB(255, 255, 225, 166)),
+            ColorScheme.fromSeed(seedColor: Color.fromARGB(255, 7, 83, 90)),
         useMaterial3: false,
       ),
       home: const MainMenu(),
