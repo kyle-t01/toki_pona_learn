@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import '../../../models/defs_dict.dart';
+import '../../../models/word_fact.dart';
 
 class WordCard extends StatelessWidget {
   final WordFact wordFact;
