@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import '../screens/dictionary.dart';
+import '../screens/view.dart';
 
 class MainMenu extends StatelessWidget {
   const MainMenu({super.key});
@@ -25,11 +26,12 @@ class MainMenu extends StatelessWidget {
             ),
             ElevatedButton(
               onPressed: () {
-                ScaffoldMessenger.of(context).showSnackBar(
-                  const SnackBar(content: Text('View pressed')),
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => const ViewScreen()),
                 );
               },
-              child: const Text('View'),
+              child: const Text('View Words'),
             ),
             ElevatedButton(
               onPressed: () {
