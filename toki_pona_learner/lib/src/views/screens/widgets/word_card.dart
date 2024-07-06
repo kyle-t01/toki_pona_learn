@@ -26,12 +26,18 @@ class WordCard extends StatelessWidget {
   }
 
   Widget buildWordHeader() {
-    return Text(
-      wordFact.word.word,
-      style: const TextStyle(
-        fontFamily: 'sitelenselikiwen',
-        fontSize: 24.0,
-      ),
+    return Row(
+      children: [
+        Text(wordFact.word.word,
+            style: const TextStyle(
+              fontFamily: 'sitelenselikiwen',
+              fontSize: 24.0,
+            )),
+        Text(wordFact.word.word,
+            style: const TextStyle(
+              fontSize: 24.0,
+            )),
+      ],
     );
   }
 
