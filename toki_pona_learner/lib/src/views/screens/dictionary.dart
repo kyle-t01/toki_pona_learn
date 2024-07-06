@@ -72,8 +72,6 @@ class _DictionaryState extends State<Dictionary> {
     setState(() {
       results = entries;
     });
-
-    setState(() {});
   }
 
   @override
