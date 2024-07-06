@@ -103,8 +103,8 @@ class _DictionaryState extends State<Dictionary> {
                   : ListView.builder(
                       itemCount: results.length,
                       itemBuilder: (context, index) {
-                        WordFact defsDict = results[index];
-                        return Text("$defsDict");
+                        WordFact wordFact = results[index];
+                        return WordCard(wordFact: wordFact);
                       },
                     ),
             ),

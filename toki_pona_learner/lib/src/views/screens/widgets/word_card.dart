@@ -16,43 +16,59 @@ class WordCard extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text(
-              wordFact.word.word,
-              style: const TextStyle(
-                fontFamily: 'sitelenselikiwen',
-                fontSize: 24,
-                fontWeight: FontWeight.bold,
-              ),
-            ),
+            buildWordHeader(),
             const SizedBox(height: 8.0),
-            ...sortedKeys.map((partOfSpeech) {
-              return Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    partOfSpeech,
-                    style: const TextStyle(
-                      fontFamily: 'Roboto',
-                      fontSize: 16,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                  ...wordFact.defsDict[partOfSpeech]!.map((definition) {
-                    return Text(
-                      definition,
-                      style: const TextStyle(
-                        fontFamily: 'Roboto',
-                        fontSize: 14,
-                      ),
-                    );
-                  }).toList(),
-                  const SizedBox(height: 8.0),
-                ],
-              );
-            }).toList(),
+            ...buildDefinitions(sortedKeys),
           ],
         ),
       ),
     );
+  }
+
+  Widget buildWordHeader() {
+    return Text(
+      wordFact.word.word,
+      style: const TextStyle(
+        fontFamily: 'sitelenselikiwen',
+        fontSize: 24,
+        fontWeight: FontWeight.bold,
+      ),
+    );
+  }
+
+  List<Widget> buildDefinitions(List<String> sortedKeys) {
+    return sortedKeys.map((partOfSpeech) {
+      return Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          buildPartOfSpeech(partOfSpeech),
+          ...buildDefinitionsList(partOfSpeech),
+          const SizedBox(height: 8.0),
+        ],
+      );
+    }).toList();
+  }
+
+  Widget buildPartOfSpeech(String partOfSpeech) {
+    return Text(
+      partOfSpeech,
+      style: const TextStyle(
+        fontFamily: 'Roboto',
+        fontSize: 16,
+        fontWeight: FontWeight.bold,
+      ),
+    );
+  }
+
+  List<Widget> buildDefinitionsList(String partOfSpeech) {
+    return wordFact.defsDict[partOfSpeech]!.map((definition) {
+      return Text(
+        definition,
+        style: const TextStyle(
+          fontFamily: 'Roboto',
+          fontSize: 14,
+        ),
+      );
+    }).toList();
   }
 }
