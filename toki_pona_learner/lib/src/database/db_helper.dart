@@ -161,7 +161,7 @@ class DatabaseHelper {
   }
 
   // get a WordFact from one word
-  Future<WordFact?> getWordFact(String word) async {
+  Future<WordFact> getWordFact(Word word) async {
     Database db = await database;
     List<Map<String, dynamic>> entries = await db.rawQuery('''
     SELECT Words.id AS word_id, Words.word, PartsOfSpeech.part, Definitions.definition
@@ -169,20 +169,14 @@ class DatabaseHelper {
       LEFT JOIN Definitions ON Definitions.word_id = Words.id
       LEFT JOIN PartsOfSpeech ON Definitions.part_of_speech_id = PartsOfSpeech.id
       WHERE Words.word = ?
-    ''', [word]);
-
-    if (entries.isEmpty) {
-      return null;
-    }
+    ''', [word.word]);
 
     // mapping
 
     Map<String, List<String>> definitionsMap = {};
     WordFact wordFact;
 
-    int wordID = entries[0]['word_id'];
-    String wordText = entries[0]['word'];
-    Word finalWord = Word(word: wordText, id: wordID);
+    Word finalWord = word;
 
     // for each entry in the database
     for (var entry in entries) {
