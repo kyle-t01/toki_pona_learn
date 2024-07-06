@@ -3,7 +3,7 @@ import '../../database/db_helper.dart';
 import 'dart:async';
 import "../../views/screens/widgets/word_card.dart";
 
-import "../../models/defs_dict.dart";
+import '../../models/word_fact.dart';
 
 class Dictionary extends StatefulWidget {
   const Dictionary({Key? key}) : super(key: key);
