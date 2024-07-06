@@ -12,7 +12,7 @@ import 'package:csv/csv.dart';
 import '../models/word.dart';
 import '../models/part_of_speech.dart';
 import '../models/definition.dart';
-import '../models/defs_dict.dart';
+import '../models/word_fact.dart';
 
 class DatabaseHelper {
   static final DatabaseHelper _databaseHelper =
@@ -158,6 +158,50 @@ class DatabaseHelper {
       return WordFact(word: word, defsDict: definitions);
     }).toList();
     return defsDictList;
+  }
+
+  // get a WordFact from one word
+  Future<WordFact?> getWordFact(String word) async {
+    Database db = await database;
+    List<Map<String, dynamic>> entries = await db.rawQuery('''
+    SELECT Words.id AS word_id, Words.word, PartsOfSpeech.part, Definitions.definition
+      FROM Words
+      LEFT JOIN Definitions ON Definitions.word_id = Words.id
+      LEFT JOIN PartsOfSpeech ON Definitions.part_of_speech_id = PartsOfSpeech.id
+      WHERE Words.word = ?
+    ''', [word]);
+
+    if (entries.isEmpty) {
+      return null;
+    }
+
+    // mapping
+
+    Map<String, List<String>> definitionsMap = {};
+    WordFact wordFact;
+
+    int wordID = entries[0]['word_id'];
+    String wordText = entries[0]['word'];
+    Word finalWord = Word(word: wordText, id: wordID);
+
+    // for each entry in the database
+    for (var entry in entries) {
+      String partOfSpeech = entry['part'];
+      String definition = entry['definition'];
+
+      // is this part of speech already in the mapping?
+      if (definitionsMap.containsKey(partOfSpeech)) {
+        // yes, add to map
+        definitionsMap[partOfSpeech]!.add(definition);
+      } else {
+        // no, make it the first entry
+        definitionsMap[partOfSpeech] = [definition];
+      }
+    }
+
+    wordFact = WordFact(word: finalWord, defsDict: definitionsMap);
+
+    return wordFact;
   }
 
   Future<List<Word>> getAllWords() async {
