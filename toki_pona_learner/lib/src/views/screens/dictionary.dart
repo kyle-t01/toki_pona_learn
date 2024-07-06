@@ -18,7 +18,7 @@ class _DictionaryState extends State<Dictionary> {
   Timer? _debounce;
 
   final DatabaseHelper db = DatabaseHelper();
-  List<DefsDict> results = [];
+  List<WordFact> results = [];
   List<String> splitQuery = [];
 
   @override
@@ -55,10 +55,10 @@ class _DictionaryState extends State<Dictionary> {
 
     // search query is space delimited
     List<String> words = query.split(' ').map((word) => word.trim()).toList();
-    List<DefsDict> entries = [];
+    List<WordFact> entries = [];
     // for each query
     for (String word in words) {
-      List<DefsDict> entry = await db.getWordDefsMapping(word);
+      List<WordFact> entry = await db.getWordDefsMapping(word);
       entries.addAll(entry);
     }
 
@@ -103,7 +103,7 @@ class _DictionaryState extends State<Dictionary> {
                   : ListView.builder(
                       itemCount: results.length,
                       itemBuilder: (context, index) {
-                        DefsDict defsDict = results[index];
+                        WordFact defsDict = results[index];
                         return Text("$defsDict");
                       },
                     ),

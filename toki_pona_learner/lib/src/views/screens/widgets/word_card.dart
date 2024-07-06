@@ -1,15 +1,14 @@
 import 'package:flutter/material.dart';
+import '../../../models/defs_dict.dart';
 
 class WordCard extends StatelessWidget {
-  final String word;
-  final Map<String, List<String>> definitions;
-
-  WordCard({required this.word, required this.definitions});
+  final WordFact wordFact;
+  const WordCard({super.key, required this.wordFact});
 
   @override
   Widget build(BuildContext context) {
     // Sort the parts of speech alphabetically
-    final sortedKeys = definitions.keys.toList()..sort();
+    final sortedKeys = wordFact.defsDict.keys.toList()..sort();
 
     return Card(
       child: Padding(
@@ -18,7 +17,7 @@ class WordCard extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
-              word,
+              wordFact.word.word,
               style: const TextStyle(
                 fontFamily: 'sitelenselikiwen',
                 fontSize: 24,
@@ -38,7 +37,7 @@ class WordCard extends StatelessWidget {
                       fontWeight: FontWeight.bold,
                     ),
                   ),
-                  ...definitions[partOfSpeech]!.map((definition) {
+                  ...wordFact.defsDict[partOfSpeech]!.map((definition) {
                     return Text(
                       definition,
                       style: const TextStyle(

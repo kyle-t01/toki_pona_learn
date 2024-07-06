@@ -110,7 +110,7 @@ class DatabaseHelper {
     }
   }
 
-  Future<List<DefsDict>> getWordDefsMapping(String word) async {
+  Future<List<WordFact>> getWordDefsMapping(String word) async {
     Database db = await database;
     List<Map<String, dynamic>> entries = await db.rawQuery('''
     SELECT Words.id AS word_id, Words.word, PartsOfSpeech.part, Definitions.definition
@@ -124,33 +124,38 @@ class DatabaseHelper {
       return [];
     }
 
-    // mapping of
+    // mapping
     Map<int, Word> wordMap = {};
     Map<int, Map<String, List<String>>> definitionsMap = {};
 
+    // for each entry in the database
     for (var entry in entries) {
       int wordId = entry['word_id'];
       String wordText = entry['word'];
       String partOfSpeech = entry['part'];
       String definition = entry['definition'];
 
+      // are we processing a new word?
       if (!wordMap.containsKey(wordId)) {
+        // yes a new word
         wordMap[wordId] = Word(id: wordId, word: wordText);
         definitionsMap[wordId] = {};
       }
-
+      // is this part of speech already in the mapping?
       if (definitionsMap[wordId]!.containsKey(partOfSpeech)) {
+        // yes, add to map
         definitionsMap[wordId]![partOfSpeech]!.add(definition);
       } else {
+        // no, make it the first entry
         definitionsMap[wordId]![partOfSpeech] = [definition];
       }
     }
-    List<DefsDict> defsDictList = [];
+    List<WordFact> defsDictList = [];
     defsDictList = wordMap.entries.map((entry) {
       int wordId = entry.key;
       Word word = entry.value;
       Map<String, List<String>> definitions = definitionsMap[wordId]!;
-      return DefsDict(word: word, defsDict: definitions);
+      return WordFact(word: word, defsDict: definitions);
     }).toList();
     return defsDictList;
   }

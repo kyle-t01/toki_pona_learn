@@ -1,8 +1,13 @@
 import "../models/word.dart";
 
-class DefsDict {
+class WordFact {
   final Word word;
   final Map<String, List<String>> defsDict;
 
-  DefsDict({required this.word, required this.defsDict});
+  WordFact({required this.word, required this.defsDict});
+
+  @override
+  String toString() {
+    return word.word;
+  }
 }
