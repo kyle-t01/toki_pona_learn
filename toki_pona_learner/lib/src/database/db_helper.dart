@@ -12,6 +12,7 @@ import 'package:csv/csv.dart';
 import '../models/word.dart';
 import '../models/part_of_speech.dart';
 import '../models/definition.dart';
+import '../models/defs_dict.dart';
 
 class DatabaseHelper {
   static final DatabaseHelper _databaseHelper =
@@ -109,30 +110,48 @@ class DatabaseHelper {
     }
   }
 
-  Future<Map<String, List<String>>> getWordDefsMapping(String word) async {
+  Future<List<DefsDict>> getWordDefsMapping(String word) async {
     Database db = await database;
     List<Map<String, dynamic>> entries = await db.rawQuery('''
-    SELECT PartsOfSpeech.part, Definitions.definition
-    FROM Definitions
-    JOIN Words ON Definitions.word_id = Words.id
-    JOIN PartsOfSpeech ON Definitions.part_of_speech_id = PartsOfSpeech.id
-    WHERE Words.word = ?
-    ''', [word]);
+    SELECT Words.id AS word_id, Words.word, PartsOfSpeech.part, Definitions.definition
+      FROM Words
+      LEFT JOIN Definitions ON Definitions.word_id = Words.id
+      LEFT JOIN PartsOfSpeech ON Definitions.part_of_speech_id = PartsOfSpeech.id
+      WHERE Words.word LIKE ?
+    ''', ['$word%']);
+
+    if (entries.isEmpty) {
+      return [];
+    }
 
     // mapping of
-    Map<String, List<String>> pdDict = {};
+    Map<int, Word> wordMap = {};
+    Map<int, Map<String, List<String>>> definitionsMap = {};
 
     for (var entry in entries) {
-      String partOfSpeech = entry['part_of_speech'];
+      int wordId = entry['word_id'];
+      String wordText = entry['word'];
+      String partOfSpeech = entry['part'];
       String definition = entry['definition'];
 
-      if (pdDict.containsKey(partOfSpeech)) {
-        pdDict[partOfSpeech]!.add(definition);
+      if (!wordMap.containsKey(wordId)) {
+        wordMap[wordId] = Word(id: wordId, word: wordText);
+        definitionsMap[wordId] = {};
+      }
+
+      if (definitionsMap[wordId]!.containsKey(partOfSpeech)) {
+        definitionsMap[wordId]![partOfSpeech]!.add(definition);
       } else {
-        pdDict[partOfSpeech] = [definition];
+        definitionsMap[wordId]![partOfSpeech] = [definition];
       }
     }
-    print(pdDict);
-    return pdDict;
+    List<DefsDict> defsDictList = [];
+    defsDictList = wordMap.entries.map((entry) {
+      int wordId = entry.key;
+      Word word = entry.value;
+      Map<String, List<String>> definitions = definitionsMap[wordId]!;
+      return DefsDict(word: word, defsDict: definitions);
+    }).toList();
+    return defsDictList;
   }
 }
