@@ -16,9 +16,8 @@ const String createWordsTable = '''
 CREATE TABLE Words (
   id INTEGER PRIMARY KEY AUTOINCREMENT,
   word TEXT NOT NULL,
-  priority INTEGER DEFAULT 10,
-  streak INTEGER DEFAULT 0,
-  dont_show BOOLEAN NOT NULL DEFAULT FALSE
+  dont_show_def BOOLEAN NOT NULL DEFAULT FALSE,
+  dont_show_sym BOOLEAN NOT NULL DEFAULT FALSE
 );
 ''';
 
