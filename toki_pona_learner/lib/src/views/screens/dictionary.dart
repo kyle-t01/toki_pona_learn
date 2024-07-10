@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import '../../database/db_helper.dart';
 import 'dart:async';
 import "../../views/screens/widgets/word_card.dart";
-
+import "../../views/screens/widgets/compact_word_card.dart";
 import '../../models/word_fact.dart';
 
 class Dictionary extends StatefulWidget {
@@ -20,6 +20,7 @@ class _DictionaryState extends State<Dictionary> {
   final DatabaseHelper db = DatabaseHelper();
   List<WordFact> results = [];
   List<String> splitQuery = [];
+  bool toggleCompactView = true;
 
   @override
   void initState() {
@@ -78,7 +79,18 @@ class _DictionaryState extends State<Dictionary> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Dictionary'),
+        title: Row(
+          children: [
+            const Text('View Words'),
+            const SizedBox(width: 16.0),
+            IconButton(
+              icon: toggleCompactView
+                  ? const Icon(Icons.article)
+                  : const Icon(Icons.article_outlined),
+              onPressed: _toggleCompactPressed,
+            ),
+          ],
+        ),
         leading: IconButton(
           icon: const Icon(Icons.arrow_back),
           onPressed: () {
@@ -109,7 +121,13 @@ class _DictionaryState extends State<Dictionary> {
                       itemCount: results.length,
                       itemBuilder: (context, index) {
                         WordFact wordFact = results[index];
-                        return WordCard(wordFact: wordFact);
+                        Widget card = toggleCompactView
+                            ? CompactWordCard(
+                                wordFact: wordFact,
+                                hideHeader: false,
+                              )
+                            : WordCard(wordFact: wordFact);
+                        return card;
                       },
                     ),
             ),
@@ -117,5 +135,11 @@ class _DictionaryState extends State<Dictionary> {
         ),
       ),
     );
+  }
+
+  void _toggleCompactPressed() {
+    setState(() {
+      toggleCompactView = !toggleCompactView;
+    });
   }
 }

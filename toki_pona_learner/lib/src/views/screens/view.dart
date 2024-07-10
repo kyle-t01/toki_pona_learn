@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import '../../database/db_helper.dart';
 import 'dart:async';
 import "../../views/screens/widgets/word_card.dart";
+import "../../views/screens/widgets/compact_word_card.dart";
 import "../../models/word.dart";
 import "../../models/word_fact.dart";
 
@@ -16,7 +17,7 @@ class _ViewScreenState extends State<ViewScreen> {
   final DatabaseHelper db = DatabaseHelper();
   List<Word> words = [];
   bool isLoading = true;
-  int columns = 7;
+  int columns = 4;
 
   @override
   void initState() {
@@ -62,16 +63,10 @@ class _ViewScreenState extends State<ViewScreen> {
         title: Row(
           children: [
             const Text('View Words'),
-            const SizedBox(width: 16.0),
+            //const SizedBox(width: 4.0),
             IconButton(
               icon: const Icon(Icons.zoom_out),
               onPressed: _zoomOut,
-            ),
-            const Text(
-              'Zoom',
-              style: TextStyle(
-                fontSize: 18.0,
-              ),
             ),
             IconButton(
               icon: const Icon(Icons.zoom_in),
@@ -135,7 +130,7 @@ class _ViewScreenState extends State<ViewScreen> {
                   fontSize: 24.0,
                 ),
               ),
-              const SizedBox(height: 8.0),
+              const SizedBox(height: 0.0),
               Text(
                 word.word,
                 style: const TextStyle(
@@ -165,7 +160,7 @@ class _ViewScreenState extends State<ViewScreen> {
                 },
               ),
             ),
-            body: WordCard(wordFact: wordFact),
+            body: CompactWordCard(wordFact: wordFact, hideHeader: false),
           ),
         );
       },
