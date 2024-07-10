@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../screens/practice_screen.dart';
 import '../screens/dictionary.dart';
 import '../screens/view.dart';
 
@@ -35,8 +36,10 @@ class MainMenu extends StatelessWidget {
             ),
             ElevatedButton(
               onPressed: () {
-                ScaffoldMessenger.of(context).showSnackBar(
-                  const SnackBar(content: Text('Practice pressed')),
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => const PracticeScreen()),
                 );
               },
               child: const Text('Practice'),
