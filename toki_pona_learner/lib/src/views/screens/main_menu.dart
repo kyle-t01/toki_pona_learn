@@ -101,16 +101,11 @@ class MainMenu extends StatelessWidget {
               const Text("Word - P.of Speech - Definition"),
               const SizedBox(height: 8),
               const Text(
-                '"ala","mod","no"\n'
-                '"ala","mod","not"\n'
-                '"ala","mod","none"\n'
-                '"ala","mod","un-"\n'
-                '"ala","number","null"\n'
-                '"ala","number","0"\n'
-                '"ala","interjection","no"\n'
-                '"ala","noun","nothing"\n'
-                '"ala","noun","negation"\n'
-                '"ala","noun","zero"\n',
+                '"moku","noun","meal"\n'
+                '"moku","noun","food"\n'
+                '"moku","verb","to eat"\n'
+                '"moku","verb","drink"\n'
+                '"moku","verb","consume"\n',
                 style: TextStyle(fontFamily: 'monospace'),
               ),
               const SizedBox(height: 16),
