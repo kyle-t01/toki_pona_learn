@@ -35,6 +35,7 @@ class WordCard extends StatelessWidget {
             )),
         Text(wordFact.word.word,
             style: const TextStyle(
+              fontFamily: 'Roboto',
               fontSize: 24.0,
             )),
       ],

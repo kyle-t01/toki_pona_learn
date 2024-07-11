@@ -37,6 +37,7 @@ class CompactWordCard extends StatelessWidget {
         //const Spacer(),
         Text(wordFact.word.word,
             style: const TextStyle(
+              fontFamily: 'Roboto',
               fontSize: 24.0,
             )),
       ],
@@ -50,9 +51,7 @@ class CompactWordCard extends StatelessWidget {
         child: RichText(
           text: TextSpan(
             style: const TextStyle(
-              fontFamily: 'Roboto',
               fontSize: 14,
-              color: Colors.black,
             ),
             children: [
               TextSpan(
