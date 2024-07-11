@@ -31,6 +31,7 @@ class _PracticeScreenState extends State<PracticeScreen> {
   bool isCorrect = false;
   bool justAnswered = false;
   bool alreadyShowingSummary = false;
+  bool disableButtons = false;
   QuestionContent questionContent = QuestionContent.definitions;
   AnswerContent answerContent = AnswerContent.words;
 
@@ -143,6 +144,7 @@ class _PracticeScreenState extends State<PracticeScreen> {
       currentWordFact = nextWordFact;
       currentQuizOptions = nextOptions;
       isLoading = false;
+      disableButtons = false;
     });
   }
 
@@ -160,6 +162,15 @@ class _PracticeScreenState extends State<PracticeScreen> {
   }
 
   Future<void> _handleOptionTap(int selectedIndex) async {
+    if (disableButtons) {
+      return;
+    }
+
+    // when picking on option, disable further input
+    setState(() {
+      disableButtons = true;
+    });
+
     bool correct;
     bool answered = true;
     if (selectedIndex == -1) {
