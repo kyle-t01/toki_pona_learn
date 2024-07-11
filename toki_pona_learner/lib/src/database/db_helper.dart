@@ -111,6 +111,7 @@ class DatabaseHelper {
         'part_of_speech_id': posID,
         'definition': defsStr
       });
+      print("$wordStr $posStr $defsStr");
     }
   }
 
