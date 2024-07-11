@@ -3,9 +3,13 @@ enum QuestionFormat {
   definitions,
 }
 
-enum PracticeType {
-  stw,
-  wts,
-  dtw,
-  wtd,
+enum QuestionContent {
+  symbols,
+  definitions,
+  words,
+}
+
+enum AnswerContent {
+  symbols,
+  words,
 }
