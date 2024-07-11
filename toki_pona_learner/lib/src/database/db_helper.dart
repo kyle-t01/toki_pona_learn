@@ -10,7 +10,7 @@ import 'package:path_provider/path_provider.dart';
 import 'package:sqflite_common_ffi/sqflite_ffi.dart';
 
 import 'package:flutter/foundation.dart' show kIsWeb, defaultTargetPlatform;
-import 'package:path/path.dart';
+import 'package:file_picker/file_picker.dart';
 import 'package:csv/csv.dart';
 
 //import models
@@ -56,21 +56,29 @@ class DatabaseHelper {
 
   Future<void> _createDb(Database db, int version) async {
     // await db.execute(createFontsTable);
+    await _createAllTables(db);
+    await loadDefaultCSVtoDB(db);
+  }
+
+  Future<void> _createAllTables(Database db) async {
     await db.execute(createWordsTable);
     await db.execute(createPartsOfSpeechTable);
     await db.execute(createDefinitionsTable);
-    await loadCSVtoDB(db);
   }
 
-  Future<void> loadCSVtoDB(Database db) async {
-    await insertDefinitions(db);
-    return;
+  Future<void> _deleteAllTables(Database db) async {
+    await db.execute('DROP TABLE IF EXISTS Words');
+    await db.execute('DROP TABLE IF EXISTS PartsOfSpeech');
+    await db.execute('DROP TABLE IF EXISTS Definitions');
   }
 
-  Future<void> insertDefinitions(Database db) async {
-    final String defsData =
-        await rootBundle.loadString('assets/toki_pona_dict.csv');
-    List<List<dynamic>> data = const CsvToListConverter().convert(defsData);
+  Future<void> loadDefaultCSVtoDB(Database db) async {
+    String csvString = await rootBundle.loadString('assets/toki_pona_dict.csv');
+    await _insertCSVData(db, csvString);
+  }
+
+  Future<void> _insertCSVData(Database db, String csvString) async {
+    List<List<dynamic>> data = const CsvToListConverter().convert(csvString);
 
     for (var row in data) {
       String wordStr = row[0];
@@ -86,6 +94,31 @@ class DatabaseHelper {
         'definition': defsStr
       });
     }
+  }
+
+  Future<void> uploadCSV() async {
+    FilePickerResult? result = await FilePicker.platform.pickFiles(
+      type: FileType.custom,
+      allowedExtensions: ['csv'],
+    );
+
+    if (result != null) {
+      PlatformFile file = result.files.first;
+      String csvString = await File(file.path!).readAsString();
+      Database db = await database;
+      await _deleteAllTables(db);
+      await _createAllTables(db);
+      await _insertCSVData(db, csvString);
+    } else {
+      print('File picker canceled');
+    }
+  }
+
+  Future<void> revertToDefaultCSV() async {
+    Database db = await database;
+    await _deleteAllTables(db);
+    await _createAllTables(db);
+    await loadDefaultCSVtoDB(db);
   }
 
   Future<int> getOrInsertWordId(Database db, String word) async {
