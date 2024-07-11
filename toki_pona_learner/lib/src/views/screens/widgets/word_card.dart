@@ -60,7 +60,7 @@ class WordCard extends StatelessWidget {
       partOfSpeech,
       style: const TextStyle(
         fontFamily: 'Roboto',
-        fontSize: 16,
+        fontSize: 18,
         fontWeight: FontWeight.bold,
       ),
     );
@@ -72,7 +72,7 @@ class WordCard extends StatelessWidget {
         definition,
         style: const TextStyle(
           fontFamily: 'Roboto',
-          fontSize: 14,
+          fontSize: 16,
         ),
       );
     }).toList();
