@@ -17,50 +17,65 @@ class MainMenu extends StatelessWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            ElevatedButton(
-              onPressed: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => const Dictionary()),
-                );
-              },
-              child: const Text('Dictionary'),
+            SizedBox(
+              width: double.infinity,
+              child: ElevatedButton(
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => const Dictionary()),
+                  );
+                },
+                child: const Text('Dictionary'),
+              ),
             ),
             const SizedBox(height: 16.0),
-            ElevatedButton(
-              onPressed: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => const ViewScreen()),
-                );
-              },
-              child: const Text('View Words'),
+            SizedBox(
+              width: double.infinity,
+              child: ElevatedButton(
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => const ViewScreen()),
+                  );
+                },
+                child: const Text('View Words'),
+              ),
             ),
             const SizedBox(height: 16.0),
-            ElevatedButton(
-              onPressed: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                      builder: (context) => const PracticeScreen()),
-                );
-              },
-              child: const Text('Practice'),
+            SizedBox(
+              width: double.infinity,
+              child: ElevatedButton(
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => const PracticeScreen()),
+                  );
+                },
+                child: const Text('Practice'),
+              ),
             ),
             const SizedBox(height: 16.0),
-            ElevatedButton(
-              onPressed: () {
-                _showUploadInstructions(context);
-              },
-              child: const Text('Upload Custom Dictionary'),
+            SizedBox(
+              width: double.infinity,
+              child: ElevatedButton(
+                onPressed: () {
+                  _showUploadInstructions(context);
+                },
+                child: const Text('Upload Custom Dictionary'),
+              ),
             ),
             const SizedBox(height: 16),
-            ElevatedButton(
-              onPressed: () async {
-                final dbHelper = DatabaseHelper();
-                await dbHelper.revertToDefaultCSV();
-              },
-              child: const Text('Revert to Default Dictionary'),
+            SizedBox(
+              width: double.infinity,
+              child: ElevatedButton(
+                onPressed: () async {
+                  final dbHelper = DatabaseHelper();
+                  await dbHelper.revertToDefaultCSV();
+                },
+                child: const Text('Revert to Default Dictionary'),
+              ),
             ),
             const SizedBox(height: 16),
           ],
@@ -72,7 +87,7 @@ class MainMenu extends StatelessWidget {
   void _showUploadInstructions(BuildContext context) {
     showDialog(
       context: context,
-      barrierDismissible: false,
+      barrierDismissible: true,
       builder: (BuildContext context) {
         return AlertDialog(
           title: const Text('CSV Upload Instructions'),
