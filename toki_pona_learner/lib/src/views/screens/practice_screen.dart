@@ -30,11 +30,16 @@ class _PracticeScreenState extends State<PracticeScreen> {
   bool finishedQuiz = false;
   bool isCorrect = false;
   bool justAnswered = false;
+  bool alreadyShowingSummary = false;
+  QuestionContent questionContent = QuestionContent.definitions;
+  AnswerContent answerContent = AnswerContent.words;
 
   @override
   void initState() {
     super.initState();
-    _initialiseQuiz();
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      _showPreQuizScreen();
+    });
   }
 
   Future<void> _initialiseQuiz() async {
@@ -42,8 +47,69 @@ class _PracticeScreenState extends State<PracticeScreen> {
     await _loadNextQuizWord();
   }
 
+  Future<void> _showPreQuizScreen() async {
+    await showDialog(
+      context: context,
+      barrierDismissible: false,
+      builder: (BuildContext context) {
+        return Padding(
+          padding: EdgeInsets.zero,
+          child: AlertDialog(
+            title: const Text('Quiz Format'),
+            content: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                _buildQuizOption('Symbol to Words', QuestionContent.symbols,
+                    AnswerContent.words),
+                _buildQuizOption('Word to Symbols', QuestionContent.words,
+                    AnswerContent.symbols),
+                _buildQuizOption('Definitions to Words',
+                    QuestionContent.definitions, AnswerContent.words),
+                _buildQuizOption('Definitions to Symbols',
+                    QuestionContent.definitions, AnswerContent.symbols),
+              ],
+            ),
+          ),
+        );
+      },
+    );
+  }
+
+  Widget _buildQuizOption(
+      String title, QuestionContent qContent, AnswerContent aContent) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 2.0, horizontal: 0),
+      child: ListTile(
+        tileColor: const Color.fromARGB(255, 63, 63, 63).withOpacity(0.1),
+        title: Text(
+          title,
+          style: const TextStyle(
+            fontSize: 16.0,
+            fontWeight: FontWeight.bold,
+          ),
+        ),
+        onTap: () async {
+          Navigator.of(context).pop();
+          setState(() {
+            questionContent = qContent;
+            answerContent = aContent;
+          });
+
+          await _initialiseQuiz();
+        },
+      ),
+    );
+  }
+
   Future<void> _loadWordIDList() async {
-    QuestionFormat questionFormat = QuestionFormat.symbols;
+    QuestionFormat questionFormat = QuestionFormat.definitions;
+
+    if (questionContent == QuestionContent.symbols ||
+        questionContent == QuestionContent.words) {
+      questionFormat = QuestionFormat.symbols;
+    } else if (questionContent == QuestionContent.definitions) {
+      questionFormat = QuestionFormat.definitions;
+    }
     List<int> randomIDList = await db.getRandomWordIDList(questionFormat);
     setState(() {
       wordIDList = randomIDList;
@@ -55,9 +121,13 @@ class _PracticeScreenState extends State<PracticeScreen> {
     if (currQIndex >= wordIDList.length - 1) {
       setState(() {
         currQIndex = wordIDList.length;
+        finishedQuiz = true;
       });
-      _showSummary();
 
+      // check if finished quiz
+      if (finishedQuiz == true && alreadyShowingSummary == false) {
+        _showSummary();
+      }
       return;
     }
 
@@ -77,10 +147,14 @@ class _PracticeScreenState extends State<PracticeScreen> {
   }
 
   void _showSummary() {
+    setState(() {
+      alreadyShowingSummary = true;
+    });
     Navigator.push(
       context,
       MaterialPageRoute(builder: (context) => SummaryScreen(results: results)),
     );
+
     return;
   }
 
@@ -104,15 +178,13 @@ class _PracticeScreenState extends State<PracticeScreen> {
       _viewWordCard(currentWordFact);
     }
 
-    await Future.delayed(Duration(milliseconds: 300));
+    await Future.delayed(const Duration(milliseconds: 300));
 
     setState(() {
       justAnswered = false;
       isCorrect = false;
       answeredWith = -1;
     });
-
-    //await db.updateStreakAndPriority(currentWord, isCorrect); // Update the word asynchronously
 
     await _loadNextQuizWord();
   }
@@ -132,7 +204,6 @@ class _PracticeScreenState extends State<PracticeScreen> {
       body: isLoading
           ? const Center(child: CircularProgressIndicator())
           : _buildQuizContent(),
-      //bottomNavigationBar: _buildBottomBar(),
     );
   }
 
@@ -181,7 +252,14 @@ class _PracticeScreenState extends State<PracticeScreen> {
   }
 
   Widget _buildQuestion() {
-    return _questionWord();
+    if (questionContent == QuestionContent.symbols) {
+      return _questionSymbol();
+    } else if (questionContent == QuestionContent.words) {
+      return _questionWord();
+    } else if (questionContent == QuestionContent.definitions) {
+      return _questionDefinitions();
+    }
+    return const Text("child not implemented!");
   }
 
   Widget _questionSymbol() {
@@ -239,17 +317,42 @@ class _PracticeScreenState extends State<PracticeScreen> {
             style: ElevatedButton.styleFrom(
               backgroundColor: (index != answeredWith)
                   ? null
-                  : (justAnswered && isCorrect
-                      ? Colors.green
-                      : Colors.red), // Change color based on selection
+                  : (justAnswered && isCorrect ? Colors.green : Colors.red),
             ),
-            child: Text(
-              options[index].word.word,
-              style: const TextStyle(fontSize: 24),
-            ),
+            child: _buildOption(options[index]),
           ),
         );
       },
+    );
+  }
+
+  Widget _buildOption(WordFact wordFact) {
+    if (answerContent == AnswerContent.symbols) {
+      return _buildOptionSymbol(wordFact);
+    } else if (answerContent == AnswerContent.words) {
+      return _buildOptionWord(wordFact);
+    } else {
+      return const Text("unknown answer");
+    }
+  }
+
+  Widget _buildOptionSymbol(WordFact wordFact) {
+    return Text(
+      wordFact.word.word,
+      style: const TextStyle(
+        fontSize: 32,
+        fontFamily: 'sitelenselikiwen',
+      ),
+    );
+  }
+
+  Widget _buildOptionWord(WordFact wordFact) {
+    return Text(
+      wordFact.word.word,
+      style: const TextStyle(
+        fontSize: 24,
+        fontFamily: 'Roboto',
+      ),
     );
   }
 
