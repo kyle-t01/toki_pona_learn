@@ -25,6 +25,7 @@ class MainMenu extends StatelessWidget {
               },
               child: const Text('Dictionary'),
             ),
+            const SizedBox(height: 16.0),
             ElevatedButton(
               onPressed: () {
                 Navigator.push(
@@ -34,6 +35,7 @@ class MainMenu extends StatelessWidget {
               },
               child: const Text('View Words'),
             ),
+            const SizedBox(height: 16.0),
             ElevatedButton(
               onPressed: () {
                 Navigator.push(
@@ -44,6 +46,8 @@ class MainMenu extends StatelessWidget {
               },
               child: const Text('Practice'),
             ),
+
+            /*
             ElevatedButton(
               onPressed: () {
                 ScaffoldMessenger.of(context).showSnackBar(
@@ -52,6 +56,7 @@ class MainMenu extends StatelessWidget {
               },
               child: const Text('Statistics'),
             ),
+            */
           ],
         ),
       ),
