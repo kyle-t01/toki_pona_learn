@@ -198,7 +198,7 @@ class _PracticeScreenState extends State<PracticeScreen> {
         leading: IconButton(
           icon: const Icon(Icons.arrow_back),
           onPressed: () {
-            Navigator.pop(context);
+            _handleExit();
           },
         ),
       ),
@@ -206,6 +206,13 @@ class _PracticeScreenState extends State<PracticeScreen> {
           ? const Center(child: CircularProgressIndicator())
           : _buildQuizContent(),
     );
+  }
+
+  void _handleExit() {
+    setState(() {
+      finishedQuiz = true;
+    });
+    _showSummary();
   }
 
   Widget _buildBottomBar() {
