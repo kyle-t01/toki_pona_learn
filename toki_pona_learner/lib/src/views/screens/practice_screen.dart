@@ -150,6 +150,7 @@ class _PracticeScreenState extends State<PracticeScreen> {
     setState(() {
       alreadyShowingSummary = true;
     });
+    Navigator.pop(context);
     Navigator.push(
       context,
       MaterialPageRoute(builder: (context) => SummaryScreen(results: results)),
