@@ -67,9 +67,8 @@ flutter:
         
 
   assets:
-    - assets/toki_pona_dict.csv
-    - assets/pos_df.csv
-    - assets/words_df.csv
+    - assets/original_toki_pona_dict.csv
+    
     # - assets/toki_pona.json
       
 

@@ -2,6 +2,7 @@
 import 'dart:math';
 
 import 'package:flutter/services.dart';
+import 'package:path/path.dart';
 
 import './database_sql.dart';
 import 'dart:io';
@@ -73,8 +74,25 @@ class DatabaseHelper {
   }
 
   Future<void> loadDefaultCSVtoDB(Database db) async {
-    String csvString = await rootBundle.loadString('assets/toki_pona_dict.csv');
+    String csvString = await _getDefaultCSVContent();
+
     await _insertCSVData(db, csvString);
+  }
+
+  Future<String> _getDefaultCSVContent() async {
+    Directory directory = await getApplicationDocumentsDirectory();
+    String defaultCSVPath = join(directory.path, 'default_toki_pona_dict.csv');
+    bool defaultCSVExists = await File(defaultCSVPath).exists();
+
+    // if a default csv exists, use it else use original
+    if (defaultCSVExists) {
+      return File(defaultCSVPath).readAsString();
+    } else {
+      String originalCsvData =
+          await rootBundle.loadString('assets/original_toki_pona_dict.csv');
+      await File(defaultCSVPath).writeAsString(originalCsvData);
+      return originalCsvData;
+    }
   }
 
   Future<void> _insertCSVData(Database db, String csvString) async {
@@ -105,6 +123,13 @@ class DatabaseHelper {
     if (result != null) {
       PlatformFile file = result.files.first;
       String csvString = await File(file.path!).readAsString();
+      Directory directory = await getApplicationDocumentsDirectory();
+      String defaultCSVPath =
+          join(directory.path, 'default_toki_pona_dict.csv');
+
+      // save custom csv file as new default csv file
+      await File(defaultCSVPath).writeAsString(csvString);
+
       Database db = await database;
       await _deleteAllTables(db);
       await _createAllTables(db);
@@ -115,6 +140,13 @@ class DatabaseHelper {
   }
 
   Future<void> revertToDefaultCSV() async {
+    String originalCsvData =
+        await rootBundle.loadString('assets/original_toki_pona_dict.csv');
+    Directory directory = await getApplicationDocumentsDirectory();
+    String defaultCSVPath = join(directory.path, 'default_toki_pona_dict.csv');
+
+    // replace default with original
+    await File(defaultCSVPath).writeAsString(originalCsvData);
     Database db = await database;
     await _deleteAllTables(db);
     await _createAllTables(db);
