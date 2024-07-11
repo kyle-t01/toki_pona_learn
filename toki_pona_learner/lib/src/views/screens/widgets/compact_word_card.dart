@@ -34,7 +34,7 @@ class CompactWordCard extends StatelessWidget {
               fontFamily: 'sitelenselikiwen',
               fontSize: 24.0,
             )),
-        const Spacer(),
+        //const Spacer(),
         Text(wordFact.word.word,
             style: const TextStyle(
               fontSize: 24.0,
