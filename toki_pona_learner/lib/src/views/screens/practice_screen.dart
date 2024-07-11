@@ -58,6 +58,7 @@ class _PracticeScreenState extends State<PracticeScreen> {
           child: AlertDialog(
             title: const Text('Quiz Format'),
             content: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
               mainAxisSize: MainAxisSize.min,
               children: [
                 _buildQuizOption('Symbol to Words', QuestionContent.symbols,
@@ -79,25 +80,30 @@ class _PracticeScreenState extends State<PracticeScreen> {
   Widget _buildQuizOption(
       String title, QuestionContent qContent, AnswerContent aContent) {
     return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 2.0, horizontal: 0),
-      child: ListTile(
-        tileColor: const Color.fromARGB(255, 63, 63, 63).withOpacity(0.1),
-        title: Text(
-          title,
-          style: const TextStyle(
-            fontSize: 16.0,
-            fontWeight: FontWeight.bold,
+      padding: const EdgeInsets.symmetric(vertical: 4.0, horizontal: 0.0),
+      child: SizedBox(
+        width: double.infinity,
+        child: ElevatedButton(
+          onPressed: () async {
+            Navigator.of(context).pop();
+            setState(() {
+              questionContent = qContent;
+              answerContent = aContent;
+            });
+            await _initialiseQuiz();
+          },
+          style: ElevatedButton.styleFrom(
+            padding: const EdgeInsets.symmetric(vertical: 8.0),
+          ),
+          child: Text(
+            title,
+            textAlign: TextAlign.left,
+            style: const TextStyle(
+              fontSize: 16.0,
+              fontWeight: FontWeight.bold,
+            ),
           ),
         ),
-        onTap: () async {
-          Navigator.of(context).pop();
-          setState(() {
-            questionContent = qContent;
-            answerContent = aContent;
-          });
-
-          await _initialiseQuiz();
-        },
       ),
     );
   }
