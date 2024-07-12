@@ -13,16 +13,19 @@ A Flutter application that helps you learn Toki Pona, and comes with a customisa
 
 ### Dictionary
 Search for Toki Pona words and view their definitions
+
 <img src="toki_pona_learner/images/dict.png" alt="Dictionary" width="25%">
 
 ### View Words
 Browse through the Toki Pona (sitelen pona) and their words
+
 <img src="toki_pona_learner/images/view_words.png" alt="View Words" width="25%">
 
 ### Practice
 Practice Toki Pona through different types of quizzes!
 #### Quiz Options
 Choose different quiz types to practice Toki Pona!
+
 <img src="toki_pona_learner/images/quiz_options.png" alt="Quiz Options" width="25%">
 
 #### Definition to Symbol
