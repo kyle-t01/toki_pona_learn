@@ -2,11 +2,27 @@
 
 A Flutter application that helps you learn Toki Pona, and comes with a customisable dictionary!
 
-## Features
+## Core Features
+- Base Dictionary of ~120 words
+- Upload your own custom definitions
 - Dictionary Search 
 - View Toki Pona words (sitelen pona) and definitions
 - Quiz yourself on sitelen pona, words, and definitions
-- Upload your own custom definitions
+
+
+## Screenshots
+### Dictionary
+![Dictionary](images/dictionary.png)
+
+### View Words
+![View Words](images/view_words.png)
+
+### Practice
+![Practice](images/practice.png)
+
+### Upload Custom Dictionary
+![Upload Custom Dictionary](images/upload_custom_dictionary.png)
+
 
 ## Installation
 1. Clone repo: 
@@ -22,3 +38,8 @@ A Flutter application that helps you learn Toki Pona, and comes with a customisa
 ```bash
    flutter run 
 ```
+
+
+
+## Future
+- 

@@ -81,7 +81,7 @@ class _DictionaryState extends State<Dictionary> {
       appBar: AppBar(
         title: Row(
           children: [
-            const Text('View Words'),
+            const Text('Dictionary'),
             const SizedBox(width: 16.0),
             IconButton(
               icon: toggleCompactView
