@@ -11,12 +11,14 @@ A Flutter application that helps you learn Toki Pona, and comes with a customisa
 ## Installation
 1. Clone repo: 
 ```bash
-   git clone https://github.com/your-username/toki-pona-learner.git
-   cd toki-pona-learner
+   git clone https://github.com/kyle-t01/toki_pona_learn.git .
+   cd toki_pona_learner
+```
 2. Install Flutter SDK then get Flutter packages
 ```bash
    flutter pub get
+```
 3. Running the App on Windows
-
 ```bash
    flutter run 
+```
