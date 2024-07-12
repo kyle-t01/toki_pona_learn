@@ -12,16 +12,17 @@ A Flutter application that helps you learn Toki Pona, and comes with a customisa
 
 ## Screenshots
 ### Dictionary
-![Dictionary](images/dictionary.png)
+![Dictionary](images/dict.png)
 
 ### View Words
 ![View Words](images/view_words.png)
 
 ### Practice
-![Practice](images/practice.png)
+![Practice](images/quiz_options.png)
+
 
 ### Upload Custom Dictionary
-![Upload Custom Dictionary](images/upload_custom_dictionary.png)
+![Upload Custom Dictionary](images/upload_csv.png)
 
 
 ## Installation
