@@ -1,16 +1,22 @@
-# toki_pona_learner
+# Toki Pona Custom Dictionary
 
-A new Flutter project.
+A Flutter application that helps you learn Toki Pona, and comes with a customisable dictionary!
 
-## Getting Started
+## Features
+- Dictionary Search 
+- View Toki Pona words (sitelen pona) and definitions
+- Quiz yourself on sitelen pona, words, and definitions
+- Upload your own custom definitions
 
-This project is a starting point for a Flutter application.
+## Installation
+1. Clone repo: 
+```bash
+   git clone https://github.com/your-username/toki-pona-learner.git
+   cd toki-pona-learner
+2. Install Flutter SDK then get Flutter packages
+```bash
+   flutter pub get
+3. Running the App on Windows
 
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+```bash
+   flutter run 
