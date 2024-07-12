@@ -26,7 +26,7 @@ Practice Toki Pona through different types of quizzes!
 #### Quiz Options
 Choose different quiz types to practice Toki Pona!
 
-<img src="toki_pona_learner/images/quiz_options.png" alt="Quiz Options" width="25%">
+<img src="toki_pona_learner/images/quiz_format.png" alt="Quiz Options" width="25%">
 
 #### Definition to Symbol
 Match definitions to their corresponding symbols
