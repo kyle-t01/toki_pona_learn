@@ -27,27 +27,33 @@ Choose different quiz types to practice Toki Pona.
 
 #### Definition to Symbol
 Match definitions to their corresponding symbols.
-<img src="toki_pona_learner/images/def_to_sym.png" alt="Definition to Symbol" width="50%">
+
+<img src="toki_pona_learner/images/def_to_sym.png" alt="Definition to Symbol" width="25%">
 
 #### Definition to Word
 Match definitions to their corresponding words.
-<img src="toki_pona_learner/images/def_to_word.png" alt="Definition to Word" width="50%">
+
+<img src="toki_pona_learner/images/def_to_word.png" alt="Definition to Word" width="25%">
 
 #### Symbol to Word
 Match symbols to their corresponding words.
-<img src="toki_pona_learner/images/sym_to_word.png" alt="Symbol to Word" width="50%">
+
+<img src="toki_pona_learner/images/sym_to_word.png" alt="Symbol to Word" width="25%">
 
 #### Word to Symbol
 Match words to their corresponding symbols.
-<img src="toki_pona_learner/images/word_to_sym.png" alt="Word to Symbol" width="50%">
+
+<img src="toki_pona_learner/images/word_to_sym.png" alt="Word to Symbol" width="25%">
 
 #### Quiz Summary
 View your quiz results and track your progress.
-<img src="toki_pona_learner/images/quiz_summary.png" alt="Quiz Summary" width="50%">
+
+<img src="toki_pona_learner/images/quiz_summary.png" alt="Quiz Summary" width="25%">
 
 ### Upload Custom Dictionary
 Upload your own custom dictionary CSV file to add new words.
-<img src="toki_pona_learner/images/upload_csv.png" alt="Upload Custom Dictionary" width="50%">
+
+<img src="toki_pona_learner/images/upload_csv.png" alt="Upload Custom Dictionary" width="25%">
 
 ## Installation
 1. Clone repo: 
