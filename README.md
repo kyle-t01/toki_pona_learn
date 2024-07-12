@@ -13,17 +13,17 @@ A Flutter application that helps you learn Toki Pona, and comes with a customisa
 
 ### Dictionary
 Search for Toki Pona words and view their definitions
-<img src="toki_pona_learner/images/dict.png" alt="Dictionary" width="50%">
+<img src="toki_pona_learner/images/dict.png" alt="Dictionary" width="25%">
 
 ### View Words
 Browse through the Toki Pona (sitelen pona) and their words
-<img src="toki_pona_learner/images/view_words.png" alt="View Words" width="50%">
+<img src="toki_pona_learner/images/view_words.png" alt="View Words" width="25%">
 
 ### Practice
 Practice Toki Pona through different types of quizzes!
 #### Quiz Options
 Choose different quiz types to practice Toki Pona!
-<img src="toki_pona_learner/images/quiz_options.png" alt="Quiz Options" width="50%">
+<img src="toki_pona_learner/images/quiz_options.png" alt="Quiz Options" width="25%">
 
 #### Definition to Symbol
 Match definitions to their corresponding symbols
@@ -75,7 +75,21 @@ Upload your own custom dictionary CSV file to add new words.
 - some more internal testing
 - release app on Google Play for Android devices
 - make project open source
+- update word dataset
 
 ## Acknowledgements
 Font: sitelenselikiwenasuki.ttf, https://github.com/kreativekorp/sitelen-seli-kiwen (jan Lepeka/Rebecca Bettencourt)
 Word Dataset: words adapated from Sonja Lang's "Toki Pona: The Language of Good"
+
+## Dataset
+CSV file: 
+in the form of: word - partofspeech - definition
+https://github.com/kyle-t01/toki_pona_learn/blob/main/toki_pona_learner/assets/original_toki_pona_dict.csv
+
+```csv
+"moku","noun","meal"
+"moku","noun","food"
+"moku","verb","to eat"
+"moku","verb","drink"
+"moku","verb","consume"
+```
